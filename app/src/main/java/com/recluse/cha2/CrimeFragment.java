@@ -18,6 +18,9 @@ import android.widget.RadioGroup;
 
 import java.util.zip.Inflater;
 
+/*
+* 主要碎片
+* */
 public class CrimeFragment extends Fragment{
     private Crime mCrime;
     private EditText mTitleField;

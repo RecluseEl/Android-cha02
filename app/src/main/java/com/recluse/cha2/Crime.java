@@ -3,6 +3,10 @@ package com.recluse.cha2;
 import java.util.Date;
 import java.util.UUID;
 
+/*
+* 问题的实体类
+* */
+
 public class Crime {
     private UUID mId;
     private String mTitle;

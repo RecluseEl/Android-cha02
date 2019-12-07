@@ -5,12 +5,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
+/*
+*抽象类
+* 为了简化代码建立
+* 只有一个Fragment的Activity可以继承该类
+* 这样就可以用createFragment()来创建Activity视图
+* */
 public abstract class SingleFragmentActivity extends AppCompatActivity {
     protected abstract Fragment createFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
+
 
         //管理Fragment，把他们的视图增加到视图层级结构
         FragmentManager fm=getSupportFragmentManager();

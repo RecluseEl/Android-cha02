@@ -7,6 +7,9 @@ import android.os.Bundle;
 
 public class CrimeActivity extends SingleFragmentActivity {
 
+    /*
+    * 布局文件复用
+    * */
     @Override
     protected Fragment createFragment() {
         return new Fragment();

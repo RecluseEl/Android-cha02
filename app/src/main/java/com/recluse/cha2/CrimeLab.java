@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/*
+* 用于管理众多实体
+* */
+
+
 public class CrimeLab {
     private static CrimeLab sCrimeLab;
     private List<Crime> mCrimes;
@@ -29,11 +34,17 @@ public class CrimeLab {
             mCrimes.add(crime);
         }
     }
+    /*
+    *返回所有实例
+    * */
     public List<Crime> getCrimes()
     {
         return mCrimes;
     }
 
+    /*
+    * 根据目标ID找目标实例
+    * */
     public Crime getCrime(UUID id){
         for(Crime crime:mCrimes){
             if (crime.getId().equals(id))
