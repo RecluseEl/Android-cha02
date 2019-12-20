@@ -1,19 +1,27 @@
-package com.recluse.cha2;
+package com.recluse.cha2.CrimeForm;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+
+import com.recluse.cha2.SingleFragmentActivity;
+
 
 /*
-*抽象类
-* 为了简化代码建立
-* 只有一个Fragment的Activity可以继承该类
-* 这样就可以用createFragment()来创建Activity视图
+*
+* 表格Activity的入口
+*
 * */
-public abstract class SingleFragmentActivity extends AppCompatActivity {
-    //继承这个方法来生成对应的Fragment
-    protected abstract Fragment createFragment();
+public class CrimeActivity extends SingleFragmentActivity {
+
+    /*
+    * 布局文件复用
+    * */
+    @Override
+    protected Fragment createFragment() {
+        return new CrimeFragment();
+    }
+
+    //通过继承抽象类可以实现代码重复使用,所以注释掉
+    /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +34,10 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         Fragment fragment=fm.findFragmentById(R.id.fragment_container);//
         //比如翻转屏幕，Fragment会被销毁，FragmentManager会保留Fragment队列，这时应新建Fragment增加到原有位置。
         if(fragment==null){
-            fragment=createFragment();//这是一个抽象方法，需要后续继承
+            fragment=new CrimeFragment();//创建CrimeFragment对象，实例中有动态装载的方法，所以可以引入Fragment
             //对Manager提交事务，第一个参数是容器，第二个参数是对象。
             fm.beginTransaction().add(R.id.fragment_container,fragment).commit();
         }
 
-    }
+    }*/
 }

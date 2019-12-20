@@ -1,6 +1,8 @@
-package com.recluse.cha2;
+package com.recluse.cha2.CrimeList;
 
 import android.content.Context;
+
+import com.recluse.cha2.Crime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +17,7 @@ public class CrimeLab {
     private static CrimeLab sCrimeLab;
     private List<Crime> mCrimes;
 
-    public static CrimeLab get(Context context)
-    {
-        if(sCrimeLab == null)
-        {
-            sCrimeLab=new CrimeLab(context);
-
-        }
-        return sCrimeLab;
-    }
+    //构造方法
     private CrimeLab(Context context){
         mCrimes=new ArrayList<>();
         for(int i=0;i<100;i++)
@@ -34,6 +28,17 @@ public class CrimeLab {
             mCrimes.add(crime);
         }
     }
+
+    public static CrimeLab get(Context context)
+    {
+        if(sCrimeLab == null)
+        {
+            sCrimeLab=new CrimeLab(context);
+
+        }
+        return sCrimeLab;
+    }
+
     /*
     *返回所有实例
     * */
