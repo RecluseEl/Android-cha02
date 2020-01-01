@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.recluse.cha2.Crime;
 import com.recluse.cha2.R;
@@ -16,10 +18,15 @@ import com.recluse.cha2.R;
 import java.util.List;
 
 /*
-* Recycler View 的主容器
+* RecyclerView 的主容器
 *
+* RecyclerView包含多个列表项（View)
+*
+* ViewHolder借助着itemView搭载着View
+*
+* ViewHolder由Adapter生成并且绑定数据
 * */
-public class CrimeListFragment extends  Fragment{
+public class CrimeListFragment extends Fragment{
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
 
@@ -38,21 +45,39 @@ public class CrimeListFragment extends  Fragment{
     private void updateUI() {
         CrimeLab crimeLab=CrimeLab.get(getActivity());
         List<Crime> crimes=crimeLab.getCrimes();
+        //构造Adapter
         mAdapter=new CrimeAdapter(crimes);
+        //把Adapter绑定到RecyclerView
         mCrimeRecyclerView.setAdapter(mAdapter);
     }
 
     /*
     * 内部类，列表项
     * */
-    private class CrimeHolder extends RecyclerView.ViewHolder{
+    private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private TextView mTitleTextView;
+        private TextView mDateTextView;
+        private Crime mCrime;
         public CrimeHolder(LayoutInflater inflater,ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_crime,parent,false));
+            mTitleTextView=(TextView)itemView.findViewById(R.id.crime_title);
+            mDateTextView=(TextView)itemView.findViewById(R.id.crime_date);
+        }
+        public void bind(Crime crime){
+            mCrime=crime;
+            mTitleTextView.setText(crime.getTitle());
+            mDateTextView.setText(crime.getDate().toString());
+        }
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(getActivity(),"demo",Toast.LENGTH_LONG).show();
         }
     }
 
-    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder>
-    {
+    //Adapter 适配器
+    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
+        //用于创建RecyclerView的实体
         private List<Crime> mCrimes;
 
         public CrimeAdapter(List<Crime> crimes)
@@ -60,15 +85,18 @@ public class CrimeListFragment extends  Fragment{
             mCrimes=crimes;
         }
 
+        //CreateViewHolder
         @Override
         public CrimeHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             LayoutInflater layoutInflater=LayoutInflater.from(getActivity());
             return new CrimeHolder(layoutInflater,viewGroup);
         }
 
+        //Bind Data to ViewHolder
         @Override
-        public void onBindViewHolder(@NonNull CrimeHolder crimeHolder, int i) {
-
+        public void onBindViewHolder(@NonNull CrimeHolder crimeHolder, int position) {
+            Crime crime=mCrimes.get(position);
+            crimeHolder.bind(crime);
         }
 
         @Override
