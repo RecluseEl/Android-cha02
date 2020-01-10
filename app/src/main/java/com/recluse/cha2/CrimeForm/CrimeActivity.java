@@ -1,8 +1,12 @@
 package com.recluse.cha2.CrimeForm;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.recluse.cha2.SingleFragmentActivity;
+
+import java.util.UUID;
 
 
 /*
@@ -12,12 +16,20 @@ import com.recluse.cha2.SingleFragmentActivity;
 * */
 public class CrimeActivity extends SingleFragmentActivity {
 
+
+    public static final String EXTRA_CRIME_ID="com.recluse.cha2.crime_id";
     /*
     * 布局文件复用
     * */
     @Override
     protected Fragment createFragment() {
         return new CrimeFragment();
+    }
+
+    public static Intent newIntent(Context packageContext, UUID crimeId) {
+        Intent intent=new Intent(packageContext,CrimeActivity.class);
+        intent.putExtra(EXTRA_CRIME_ID,crimeId);
+        return intent;
     }
 
     //通过继承抽象类可以实现代码重复使用,所以注释掉

@@ -14,7 +14,10 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.recluse.cha2.Crime;
+import com.recluse.cha2.CrimeList.CrimeLab;
 import com.recluse.cha2.R;
+
+import java.util.UUID;
 
 /*
 * 表格的碎片，
@@ -30,7 +33,9 @@ public class CrimeFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        mCrime=new Crime();
+        UUID crimeId=(UUID)getActivity().getIntent().getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
+        mCrime= CrimeLab.get(getActivity()).getCrime(crimeId);
+
 
     }
     //动态装载Fragment
@@ -74,6 +79,7 @@ public class CrimeFragment extends Fragment{
 
 
     }
+
 
 }
 

@@ -20,6 +20,7 @@
         android:text="@string/crime_datails_label"
         style="?android:listSeparatorTextViewStyle" />
     <Button
+        android:padding="80dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/crime_date"/>

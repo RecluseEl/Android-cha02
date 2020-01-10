@@ -1,21 +1,27 @@
 package com.recluse.cha2.CrimeList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.support.v7.widget.AppCompatImageView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.recluse.cha2.Crime;
+import com.recluse.cha2.CrimeForm.CrimeActivity;
 import com.recluse.cha2.R;
 
 import java.util.List;
+import java.util.zip.Inflater;
 
 /*
 * RecyclerView 的主容器
@@ -57,22 +63,32 @@ public class CrimeListFragment extends Fragment{
     private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView mTitleTextView;
         private TextView mDateTextView;
+        private TextView mSolvedImageView;
         private Crime mCrime;
         public CrimeHolder(LayoutInflater inflater,ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_crime,parent,false));
             mTitleTextView=(TextView)itemView.findViewById(R.id.crime_title);
             mDateTextView=(TextView)itemView.findViewById(R.id.crime_date);
+            mSolvedImageView=(TextView) itemView.findViewById(R.id.crime_solved);
         }
         public void bind(Crime crime){
             mCrime=crime;
             mTitleTextView.setText(crime.getTitle());
             mDateTextView.setText(crime.getDate().toString());
+            Log.d("demo", "bind: 1");
+            if (crime.isSolved()==false) {
+                mSolvedImageView.setVisibility(View.VISIBLE);
+            }
+            else mSolvedImageView.setVisibility(View.GONE);
+            Log.d("demo", "bind: 2");
         }
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(getActivity(),"demo",Toast.LENGTH_LONG).show();
+            Intent intent=CrimeActivity.newIntent(getActivity(),mCrime.getId());
+            startActivity(intent);
         }
+
     }
 
     //Adapter 适配器
