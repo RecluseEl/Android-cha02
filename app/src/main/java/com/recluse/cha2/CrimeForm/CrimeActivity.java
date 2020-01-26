@@ -21,11 +21,15 @@ public class CrimeActivity extends SingleFragmentActivity {
     /*
     * 布局文件复用
     * */
+    //该方法利用CrimeFragment类里的相关方法创建fragment
     @Override
     protected Fragment createFragment() {
         return new CrimeFragment();
     }
 
+    /*该方法用于创建指向该方法的Intent
+    * 在这里创建以实现代码的复用，简化开发
+    * */
     public static Intent newIntent(Context packageContext, UUID crimeId) {
         Intent intent=new Intent(packageContext,CrimeActivity.class);
         intent.putExtra(EXTRA_CRIME_ID,crimeId);
@@ -38,8 +42,6 @@ public class CrimeActivity extends SingleFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);//这是一个空白页面
-
-
         //管理Fragment，把他们的视图增加到视图层级结构
         FragmentManager fm=getSupportFragmentManager();
         //从队列里找到目标Fragment

@@ -29,16 +29,32 @@ public class CrimeFragment extends Fragment{
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
 
+    private static final String ARG_CRIME_ID="crime_id";
+    /*fragment中可以绑定Bundle，Bundle是以键值对形式存储，每一个键值对称作一个argument*/
+    /*该方法用于创建有Bundle的CrimeFragment*/
+    public static CrimeFragment newInstance(UUID crimeId){
+        /*创建Bundle，增加附加值*/
+        Bundle args=new Bundle();
+        args.putSerializable(ARG_CRIME_ID,crimeId);
+        /*创建新的Fragment，把Bundle依附到Fragment*/
+        CrimeFragment fragment=new CrimeFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    //创建Crime实体，设置该实体的id
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        UUID crimeId=(UUID)getActivity().getIntent().getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
+        //Intent中得到数据
+        UUID crimeId=(UUID)getArguments().getSerializable(ARG_CRIME_ID);
         mCrime= CrimeLab.get(getActivity()).getCrime(crimeId);
 
 
     }
     //动态装载Fragment
+    //这个方法创建一个视图并且返回
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
