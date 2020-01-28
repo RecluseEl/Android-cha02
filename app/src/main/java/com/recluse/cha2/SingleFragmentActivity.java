@@ -17,6 +17,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //装载最底层界面
         setContentView(R.layout.activity_fragment);//这是一个空白页面
         //管理Fragment，把他们的视图增加到视图层级结构
         FragmentManager fm=getSupportFragmentManager();

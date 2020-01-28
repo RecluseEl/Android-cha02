@@ -17,14 +17,17 @@ import java.util.UUID;
 public class CrimeActivity extends SingleFragmentActivity {
 
 
-    public static final String EXTRA_CRIME_ID="com.recluse.cha2.crime_id";
+    private static final String EXTRA_CRIME_ID="com.recluse.cha2.crime_id";
     /*
     * 布局文件复用
     * */
     //该方法利用CrimeFragment类里的相关方法创建fragment
     @Override
     protected Fragment createFragment() {
-        return new CrimeFragment();
+        //return new CrimeFragment();
+        UUID crimeId=(UUID)getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+        return CrimeFragment.newInstance(crimeId);
+
     }
 
     /*该方法用于创建指向该方法的Intent

@@ -47,14 +47,31 @@ public class CrimeListFragment extends Fragment{
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
     }
+    /*
+    * 退出预览用表后更新RecyclerView
+    * */
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
 
     private void updateUI() {
         CrimeLab crimeLab=CrimeLab.get(getActivity());
         List<Crime> crimes=crimeLab.getCrimes();
-        //构造Adapter
+        //利用crimes（ArrayList）构造Adapter
         mAdapter=new CrimeAdapter(crimes);
         //把Adapter绑定到RecyclerView
         mCrimeRecyclerView.setAdapter(mAdapter);
+        //更新
+        if(mAdapter==null) {
+            mAdapter = new CrimeAdapter(crimes);
+            mCrimeRecyclerView.setAdapter(mAdapter);
+        }
+         else{
+             /*该方法用处还有点疑问*/
+                mAdapter.notifyDataSetChanged();
+         }
     }
 
     /*
@@ -70,6 +87,7 @@ public class CrimeListFragment extends Fragment{
             mTitleTextView=(TextView)itemView.findViewById(R.id.crime_title);
             mDateTextView=(TextView)itemView.findViewById(R.id.crime_date);
             mSolvedImageView=(TextView) itemView.findViewById(R.id.crime_solved);
+            itemView.setOnClickListener(this);
         }
         public void bind(Crime crime){
             mCrime=crime;
@@ -88,11 +106,11 @@ public class CrimeListFragment extends Fragment{
             Intent intent=CrimeActivity.newIntent(getActivity(),mCrime.getId());
             startActivity(intent);
         }
-
     }
 
     //Adapter 适配器
-    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
+    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder>  {
+
         //用于创建RecyclerView的实体
         private List<Crime> mCrimes;
 
@@ -113,6 +131,7 @@ public class CrimeListFragment extends Fragment{
         public void onBindViewHolder(@NonNull CrimeHolder crimeHolder, int position) {
             Crime crime=mCrimes.get(position);
             crimeHolder.bind(crime);
+            //crimeHolder.itemView.setOnClickListener(this);
         }
 
         @Override
